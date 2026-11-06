@@ -20,11 +20,26 @@ spec:
         app.kubernetes.io/name: citybike
     spec:
       terminationGracePeriodSeconds: 10
+
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000      
+        seccompProfile:
+          type: RuntimeDefault
+
       containers:
         - name: citybike
           image: node:22-alpine
           imagePullPolicy: IfNotPresent
           command: ["node", "/opt/citybike/server.js"]
+          
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+
           ports:
             - name: http
               containerPort: 3000
