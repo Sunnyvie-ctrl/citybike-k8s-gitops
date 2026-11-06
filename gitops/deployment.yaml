@@ -32,7 +32,6 @@ spec:
           image: node:22-alpine
           imagePullPolicy: IfNotPresent
           command: ["node", "/opt/citybike/server.js"]
-          
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: true
@@ -45,7 +44,7 @@ spec:
               containerPort: 3000
           env:
             - name: APP_RELEASE
-              value: "v1"
+              value: "v2"
             - name: READY_MODE
               value: "ok"
           readinessProbe:
